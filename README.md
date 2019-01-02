@@ -1,8 +1,6 @@
 ![](./assets/tech-stack.svg)
 
-<h3 align="center">
-	Timesheets Back-end API service template with Express.js, GraphQL, TypeScript, Jest and Google Cloud Firestore.
-</h3>
+#Timesheets Back-end API service template with Express.js, GraphQL, TypeScript, Jest and Google Cloud Firestore.
 
 ![](./assets/graphql.png)
 
