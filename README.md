@@ -1,14 +1,10 @@
-<p align="center" style="width: 100%">
-	![](./assets/tech-stack.svg)
-</p>
+![](./assets/tech-stack.svg)
 
 <h3 align="center">
 	Timesheets Back-end API service template with Express.js, GraphQL, TypeScript, Jest and Google Cloud Firestore.
 </h3>
 
-<p align="center">
-	<img src="./assets/graphql.png" width="100%">
-</p>
+![](./assets/graphql.png)
 
 ## Overview
 
