@@ -1,11 +1,6 @@
-<h1 align="center">
-	<img
-		width="100%"
-        style="max-width: 400px"
-		alt="Dummy Logo"
-		src="./assets/tech-stack.svg">
-		![](./assets/tech-stack.svg)
-</h1>
+<p align="center" style="width: 100%">
+	![](./assets/tech-stack.svg)
+</p>
 
 <h3 align="center">
 	Timesheets Back-end API service template with Express.js, GraphQL, TypeScript, Jest and Google Cloud Firestore.
