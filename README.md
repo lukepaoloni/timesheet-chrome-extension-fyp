@@ -4,6 +4,7 @@
         style="max-width: 400px"
 		alt="Dummy Logo"
 		src="./assets/tech-stack.svg">
+		![](./assets/tech-stack.svg)
 </h1>
 
 <h3 align="center">
