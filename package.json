@@ -1,0 +1,71 @@
+{
+  "name": "timesheet-api",
+  "version": "0.0.1",
+  "description": "The API for the timesheets chrome extension.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/jes/bin/jest.js",
+    "lint": "tslint src/**/*.ts",
+    "tsc": "tsc",
+    "clean": "rimraf build",
+    "build": "npm run clean && npm run tsc --",
+    "watch": "npm run build -- -w",
+    "start": "node build/index.js",
+    "watchAndStart": "concurrently \"npm run watch\" \"npm run start\"",
+    "buildAndStart": "npm run build && npm run watchAndStart",
+    "deploy": "npm run build && gcloud app deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://luke_paoloni_kinspeed@bitbucket.org/kinspeed/timesheet-api.git"
+  },
+  "keywords": [
+    "API",
+    "GraphQL",
+    "TypeScript",
+    "JavaScript",
+    "ES6",
+    "Express",
+    "Firebase",
+    "MongoDB",
+    "Dotenv"
+  ],
+  "author": "Luke Paoloni",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/kinspeed/timesheet-api#readme",
+  "graphql": {
+    "endpoint": "http://localhost:4000/graphql",
+    "output": "./doc"
+  },
+  "dependencies": {
+    "apollo-server": "^2.3.1",
+    "apollo-server-express": "^2.3.1",
+    "body-parser": "^1.18.3",
+    "class-transformer": "^0.2.0",
+    "express": "^4.16.4",
+    "firebase-admin": "^6.4.0",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "graphql-tools": "^4.0.3",
+    "reflect-metadata": "^0.1.12",
+    "type-graphql": "^0.16.0",
+    "typeorm": "^0.2.10"
+  },
+  "devDependencies": {
+    "@types/async": "^2.0.50",
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/graphql": "^14.0.4",
+    "@types/mongodb": "^3.1.18",
+    "@types/mongoose": "^5.3.5",
+    "@types/node": "^10.12.18",
+    "concurrently": "^4.1.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  }
+}
