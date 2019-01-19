@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from '../database/database.module';
 import Config from './config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '@user/user.module';
+import { DateScalar } from '../scalar/date';
 
 let imports: any = [
   DatabaseModule,
@@ -22,6 +23,8 @@ if (Config.TYPEORM_CONNECTION) {
 @Module({
   imports,
   controllers: [],
-  providers: [],
+  providers: [
+    DateScalar,
+  ],
 })
 export class AppModule { }

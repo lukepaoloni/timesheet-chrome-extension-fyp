@@ -1,8 +1,16 @@
+scalar DateTime
+
 type User {
-    id: String!
-    username: String!
+    id: ID!
+    email: String!
+    name: String!
+    role: String!
+    status: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    lastLoggedIn: DateTime!
 }
 
 type Query {
-    getUsers: [User!]
+    getUsers: [User!]!
 }

@@ -11,7 +11,12 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@user/*": ["./src/user/*"],
+      "@db/*": ["./src/database/*"]
+    }
   },
   "exclude": ["node_modules"]
 }

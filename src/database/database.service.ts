@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { Logger } from '@nestjs/common';
 
 export class DatabaseService {
-    public db: firebase.firestore.Firestore;
+    public firestore: firebase.firestore.Firestore;
 
     constructor() {
         const config = {
@@ -15,15 +15,15 @@ export class DatabaseService {
             messagingSenderId: Config.FIREBASE_MESSAGING_SENDER_ID,
         };
         firebase.initializeApp(config);
-        this.db = firebase.firestore();
+        this.firestore = firebase.firestore();
     }
 
     public async getCollection(collection: string) {
-        return await this.db.collection(collection).get();
+        return await this.firestore.collection(collection).get();
     }
 
     public async write(collection, data) {
-        return await this.db.collection(collection).add(data);
+        return await this.firestore.collection(collection).add(data);
     }
 
     public async read(collection) {

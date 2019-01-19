@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { UsersCollection } from './users.collection';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import User from './user.entity';
+import { User } from './user.entity';
 import { UserResolver } from './user.resolver';
-import config from 'src/app/config';
+import { UserService } from './user.service';
+import config from '@app/config';
+import { UserController } from './user.controller';
 
 let imports: any = [];
 
@@ -16,8 +17,11 @@ if (config.TYPEORM_CONNECTION) {
 @Module({
     imports,
     providers: [
-        UsersCollection,
+        UserService,
         UserResolver,
+    ],
+    controllers: [
+        UserController,
     ],
 })
 export class UserModule { }
