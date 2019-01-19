@@ -27,6 +27,9 @@ class Config {
 
     @inject({ cast: toString, source })
     FIREBASE_MESSAGING_SENDER_ID: number | undefined;
+
+    @inject({ cast: toNumber, source })
+    SALT_ROUNDS: number | undefined;
 }
 
 export default new Config();

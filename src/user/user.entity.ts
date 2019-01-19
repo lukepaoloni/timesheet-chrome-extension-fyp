@@ -1,4 +1,4 @@
-import { IRoles, IStatus } from './interfaces';
+import { IRole, IStatus } from './interfaces';
 
 export class User {
 
@@ -10,7 +10,7 @@ export class User {
 
     password: string;
 
-    role: IRoles;
+    role: IRole;
 
     status: IStatus;
 

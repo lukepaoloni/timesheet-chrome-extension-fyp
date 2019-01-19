@@ -1,4 +1,4 @@
-export interface IRoles {
+export interface IRole {
     subscriber?: boolean;
     editor?: boolean;
     admin?: boolean;

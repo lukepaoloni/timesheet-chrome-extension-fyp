@@ -1,6 +1,6 @@
-import { IRoles } from './roles.interface';
+import { IRole } from './role.interface';
 import { IStatus } from './status.interface';
 export {
-    IRoles,
+    IRole,
     IStatus,
 };
