@@ -1,6 +1,9 @@
 import { DatabaseService } from '@db/database.service';
 import { Injectable } from '@nestjs/common';
 import { firestore } from 'firebase';
+import { extract } from '@lib/extract';
+import { UserRO } from '@user/response/user.response';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export abstract class AbstractService {
@@ -19,11 +22,10 @@ export abstract class AbstractService {
     async getAll() {
         const collection = await this.awaitCollection;
         const documents = collection.docs;
-        const data = [];
+        let data = [];
         documents.forEach((document) => {
             data.push(document.data());
         });
-
         return data;
     }
 

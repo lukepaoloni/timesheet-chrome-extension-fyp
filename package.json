@@ -39,6 +39,7 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
     "stringcaster": "^0.3.1",
+    "ts-transformer-keys": "^0.3.4",
     "typeorm": "^0.2.11",
     "typeorm-seeding": "^1.0.0-beta.6",
     "typescript": "^3.0.1",

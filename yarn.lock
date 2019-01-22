@@ -5281,6 +5281,10 @@ ts-simple-ast@^21.0.0:
     tslib "^1.9.0"
     typescript "^3.0.1"
 
+ts-transformer-keys@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.3.4.tgz#b54051ba9e6d5f2320b3c41ad861dbe27d38a4b4"
+
 tsconfig-paths@^3.5.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.7.0.tgz#02ae978db447b22e09dafcd4198be95c4885ceb2"

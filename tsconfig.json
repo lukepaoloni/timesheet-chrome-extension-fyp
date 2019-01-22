@@ -15,7 +15,8 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@user/*": ["./src/user/*"],
-      "@db/*": ["./src/database/*"]
+      "@db/*": ["./src/database/*"],
+      "@lib/*": ["./lib/*"],
     }
   },
   "exclude": ["node_modules"]

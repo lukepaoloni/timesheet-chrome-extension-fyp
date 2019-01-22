@@ -16,7 +16,9 @@
     "prefer-const": false,
     "no-console": false,
     "radix": false,
-    "no-unnecessary-initializer": false
+    "no-unnecessary-initializer": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-unused-expression": false,
   },
   "rulesDirectory": []
 }

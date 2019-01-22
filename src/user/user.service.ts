@@ -6,11 +6,22 @@ import { AbstractService } from '../base/service';
 import { UserDto } from './dto/user.dto';
 import bcrypt from 'bcrypt';
 import config from '@app/config';
+import { UserRO } from './response/user.response';
 
 @Injectable()
 export class UserService extends AbstractService {
     constructor(db: DatabaseService) {
         super(db, 'users');
+    }
+
+    async getCollection() {
+        const data = await super.getAll();
+        let collection: UserRO[] = [];
+        data.forEach(datum => {
+            const user = new User(datum);
+            collection.push(user.getData());
+        });
+        return collection;
     }
 
     async create(data: UserDto) {
