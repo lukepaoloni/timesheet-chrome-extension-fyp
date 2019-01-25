@@ -16,7 +16,7 @@
       "@app/*": ["./src/app/*"],
       "@user/*": ["./src/user/*"],
       "@db/*": ["./src/database/*"],
-      "@lib/*": ["./lib/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   },
   "exclude": ["node_modules"]

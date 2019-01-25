@@ -1,8 +1,8 @@
-import { IRole, IStatus } from '@user/interfaces';
+import { ERole, EStatus } from '@shared/enum';
 
 export interface UserRO {
     name: string;
     email: string;
-    role: IRole;
-    status: IStatus;
+    role: ERole;
+    status: EStatus;
 }
