@@ -8,7 +8,7 @@ export class Client extends AbstractModel<Client> {
     }
     id: string;
     name: string;
-    status: EStatus;
+    status?: EStatus;
     getData(): ClientRO {
         const { name } = this;
         const responseObject: ClientRO = { name };

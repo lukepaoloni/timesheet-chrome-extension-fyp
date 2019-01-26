@@ -18,7 +18,8 @@
       "@db/*": ["./src/database/*"],
       "@shared/*": ["./src/shared/*"],
       "@client/*": ["./src/client/*"],
-      "@project/*": ["./src/project/*"]
+      "@project/*": ["./src/project/*"],
+      "@timesheet/*": ["./src/timesheet/*"]
     }
   },
   "exclude": ["node_modules"]

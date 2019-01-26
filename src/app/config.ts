@@ -30,6 +30,13 @@ class Config {
 
     @inject({ cast: toNumber, source })
     SALT_ROUNDS: number | undefined;
+
+    @inject({ cast: toString, source })
+    BITBUCKET_APP_USERNAME: string | undefined;
+
+    @inject({ cast: toString, source })
+    BITBUCKET_APP_PASSWORD: string | undefined;
+
 }
 
 export default new Config();

@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
 import { AbstractService } from '@shared/service';
 import { DatabaseService } from '@db/database.service';
 import { ClientRO } from './response/client.response';
 import { Client } from './client.model';
 import { ClientDto } from './dto/client.dto';
 import { EStatus } from '@shared/enum';
+import { Observable } from 'apollo-link';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class ClientService extends AbstractService {
-    constructor(db: DatabaseService) {
+    constructor(db: DatabaseService, private readonly httpService: HttpService) {
         super(db, 'clients');
     }
 

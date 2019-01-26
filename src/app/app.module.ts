@@ -7,6 +7,7 @@ import { UserModule } from '@user/user.module';
 import { DateScalar } from '../scalar/date';
 import { ProjectModule } from '@project/project.module';
 import { ClientModule } from '@client/client.module';
+import { TimesheetModule } from '@timesheet/timesheet.module';
 
 let imports: any = [
   DatabaseModule,
@@ -15,7 +16,8 @@ let imports: any = [
   }),
   UserModule,
   ProjectModule,
-  ClientModule
+  ClientModule,
+  TimesheetModule
 ];
 
 if (Config.TYPEORM_CONNECTION) {

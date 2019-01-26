@@ -39,4 +39,14 @@ export const swagger = (app) => {
         .build();
     const clientDocument = SwaggerModule.createDocument(app, clientOptions, { include: [ClientModule] })
     SwaggerModule.setup('api/swagger/clients', app, clientDocument);
+
+    const timesheetOptions = new DocumentBuilder()
+        .setTitle('Timesheets')
+        .setDescription('Timesheets API')
+        .setVersion('1.0')
+        .addTag('Timesheets')
+        .build();
+    const timesheetDocument = SwaggerModule.createDocument(app, timesheetOptions, { include: [ClientModule] })
+    SwaggerModule.setup('api/swagger/timesheets', app, timesheetDocument);
+
 }
