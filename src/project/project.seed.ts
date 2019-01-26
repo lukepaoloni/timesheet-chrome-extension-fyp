@@ -10,12 +10,10 @@ export const generateProject = async (project) => {
 
 export async function Seed(collection: string = 'projects') {
     const name = `${faker.company.companyName()} ${faker.random.word()}`;
-    const client = faker.company.companyName();
     const status = EStatus.Active;
 
     const project = new Project();
     project.name = name;
-    project.client = client;
     project.status = status;
     await generateProject(project);
 }

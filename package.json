@@ -91,6 +91,14 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "@app/(.*)$": "<rootDir>/src/app/$1",
+      "@user/(.*)$": "<rootDir>/src/user/$1",
+      "@db/(.*)$": "<rootDir>/src/db/$1",
+      "@shared/(.*)$": "<rootDir>/src/shared/$1",
+      "@client/(.*)$": "<rootDir>/src/client/$1",
+      "@project/(.*)$": "<rootDir>/src/project/$1"
+    }
   }
 }

@@ -9,6 +9,7 @@ export abstract class AbstractService {
     protected collection: firestore.CollectionReference;
     protected document: firestore.DocumentReference;
     protected data;
+    protected includeCreatedUpdatedDate = true;
 
     constructor(db: DatabaseService, collection: string) {
         this.db = db;
@@ -28,6 +29,10 @@ export abstract class AbstractService {
 
     create(data) {
         this.data = data;
+        if (this.includeCreatedUpdatedDate) {
+            this.data.createdAt = new Date()
+            this.data.updatedAt = new Date()
+        }
     }
 
     async getData() {
@@ -43,8 +48,12 @@ export abstract class AbstractService {
     async update<T>(id, data: Partial<T>) {
         const document = await this.getOne(id);
         const awaitDocument = await document.get();
+        let obj: any = data;
         if (awaitDocument.exists) {
-            await document.update(data);
+            if (this.includeCreatedUpdatedDate)
+                await document.update({ ...data, updatedAt: new Date() });
+            else
+                await document.update(data);
             const newDoc = await document.get();
             const _data = newDoc.data();
             _data.success = true;

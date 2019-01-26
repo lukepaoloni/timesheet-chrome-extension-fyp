@@ -1,13 +1,15 @@
 import { EStatus } from "@shared/enum";
 import { ProjectRO } from './response/project.response';
+import { Client } from '@client/client.model';
+import { AbstractModel } from '@shared/model';
 
-export class Project {
+export class Project extends AbstractModel<Project> {
     constructor(partial?: Partial<Project>) {
-        Object.assign(this, partial);
+        super(partial)
     }
     id: string;
     name: string;
-    client: string; // Change to client
+    client: Client;
     status: EStatus;
 
     getData(): ProjectRO {

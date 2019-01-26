@@ -25,12 +25,10 @@ export class ProjectService extends AbstractService {
     async create(data: ProjectDto) {
         this.data = data;
         this.data.status = EStatus.Active;
-        this.data.createdAt = new Date()
-        this.data.updatedAt = new Date()
         return this;
     }
 
     async update(id, data: Partial<ProjectDto>) {
-        return await super.update(id, { ...data, updatedAt: new Date() });
+        return await super.update(id, data);
     }
 }

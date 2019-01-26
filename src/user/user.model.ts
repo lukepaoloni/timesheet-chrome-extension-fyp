@@ -2,10 +2,11 @@ import { ERole, EStatus } from '@shared/enum';
 import config from '@app/config';
 import * as bcrypt from 'bcrypt';
 import { UserRO } from './response/user.response';
+import { AbstractModel } from '../shared/model';
 
-export class User {
-    constructor(partial: Partial<User>) {
-        Object.assign(this, partial);
+export class User extends AbstractModel<User> {
+    constructor(partial?: Partial<User>) {
+        super(partial)
     }
     id: string;
     name: string;

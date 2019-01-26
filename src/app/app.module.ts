@@ -5,7 +5,8 @@ import Config from './config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from '@user/user.module';
 import { DateScalar } from '../scalar/date';
-import { ProjectModule } from 'src/project/project.module';
+import { ProjectModule } from '@project/project.module';
+import { ClientModule } from '@client/client.module';
 
 let imports: any = [
   DatabaseModule,
@@ -13,7 +14,8 @@ let imports: any = [
     typePaths: ['./**/*.graphql'],
   }),
   UserModule,
-  ProjectModule
+  ProjectModule,
+  ClientModule
 ];
 
 if (Config.TYPEORM_CONNECTION) {

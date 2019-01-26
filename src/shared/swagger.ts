@@ -1,6 +1,7 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { UserModule } from '@user/user.module';
 import { ProjectModule } from '../project/project.module';
+import { ClientModule } from '../client/client.module';
 
 export const swagger = (app) => {
     const options = new DocumentBuilder()
@@ -29,4 +30,13 @@ export const swagger = (app) => {
         .build();
     const projectDocument = SwaggerModule.createDocument(app, projectOptions, { include: [ProjectModule] });
     SwaggerModule.setup('api/swagger/projects', app, projectDocument);
+
+    const clientOptions = new DocumentBuilder()
+        .setTitle('Clients')
+        .setDescription('Clients API')
+        .setVersion('1.0')
+        .addTag('Clients')
+        .build();
+    const clientDocument = SwaggerModule.createDocument(app, clientOptions, { include: [ClientModule] })
+    SwaggerModule.setup('api/swagger/clients', app, clientDocument);
 }

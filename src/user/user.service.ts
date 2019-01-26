@@ -27,12 +27,10 @@ export class UserService extends AbstractService {
     async create(data: UserDto) {
         data.password = await bcrypt.hash(data.password, config.SALT_ROUNDS);
         this.data = data;
-        this.data.createdAt = new Date()
-        this.data.updatedAt = new Date()
         return this;
     }
 
     async update(id, data: Partial<UserDto>) {
-        return await super.update(id, { ...data, updatedAt: new Date() });
+        return await super.update(id, data);
     }
 }
