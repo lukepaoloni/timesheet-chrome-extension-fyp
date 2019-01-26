@@ -1,6 +1,6 @@
 import { AbstractModel } from '@shared/model';
 import { User } from '../user/user.model';
-import Project from 'ts-simple-ast';
+import { Project } from '@project/project.model';
 import { Client } from '../client/client.model';
 import { EStatus } from '../shared/enum/status.enum';
 import { TimesheetRO } from './response/timesheet.response';
@@ -19,8 +19,8 @@ export class Timesheet extends AbstractModel<Timesheet> {
     createdAt: Date;
     updatedAt: Date;
     getData(): TimesheetRO {
-        const { user, task, project, client, date, duration } = this;
-        const responseObject: TimesheetRO = { user, task, project, client, date, duration };
+        const { id, user, task, project, client, date, duration } = this;
+        const responseObject: TimesheetRO = { id, user, task, project, client, date, duration };
 
         return responseObject;
     }
