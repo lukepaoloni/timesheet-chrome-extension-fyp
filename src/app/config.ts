@@ -37,6 +37,18 @@ class Config {
     @inject({ cast: toString, source })
     BITBUCKET_APP_PASSWORD: string | undefined;
 
+    @inject({ cast: toString, source })
+    JWT_SECRET_KEY: string | undefined;
+
+    @inject({ cast: toBoolean, source })
+    USE_CUSTOM_AUTHENTICATION: boolean | undefined;
+
+    @inject({ cast: toBoolean, source })
+    USE_GOOGLE_AUTHENTICATION: boolean | undefined;
+
+    @inject({ cast: toNumber, source })
+    SESSION_EXPIRES_IN: number | undefined;
+
 }
 
 export default new Config();

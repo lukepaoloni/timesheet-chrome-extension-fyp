@@ -23,5 +23,8 @@ if (config.TYPEORM_CONNECTION) {
     controllers: [
         UserController,
     ],
+    exports: [
+        UserService
+    ]
 })
 export class UserModule { }
