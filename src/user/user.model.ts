@@ -3,13 +3,19 @@ import config from '@app/config';
 import * as bcrypt from 'bcrypt';
 import { UserRO } from './response/user.response';
 import { AbstractModel } from '../shared/model';
+import * as jwt from 'jsonwebtoken';
+import Config from '@app/config';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class User extends AbstractModel<User> {
     constructor(partial?: Partial<User>) {
         super(partial)
     }
+    @ApiModelProperty()
     id: string;
+    @ApiModelProperty()
     name: string;
+    @ApiModelProperty()
     email: string;
     password: string;
     role: ERole;
@@ -26,7 +32,7 @@ export class User extends AbstractModel<User> {
         return await bcrypt.compare(attempt, this.password);
     }
 
-    getData(showToken: boolean = true): UserRO {
+    getData(): UserRO {
         const { name, email, role, status } = this;
         const responseObject: UserRO = { name, email, role, status };
 

@@ -15,11 +15,11 @@ let imports: any = [
   GraphQLModule.forRoot({
     typePaths: ['./**/*.graphql'],
   }),
+  AuthModule,
   UserModule,
   ProjectModule,
   ClientModule,
-  TimesheetModule,
-  AuthModule
+  TimesheetModule
 ];
 
 if (Config.TYPEORM_CONNECTION) {

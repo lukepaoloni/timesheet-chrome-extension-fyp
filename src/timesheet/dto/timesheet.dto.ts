@@ -1,16 +1,16 @@
-import { User } from '@user/user.model';
-import { Project } from '@project/project.model';
-import { Client } from '@client/client.model';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { UserTimesheetDto } from './user-timesheet.dto';
+import { ProjectTimesheetDto } from './project-timesheet.dto';
+import { ClientTimesheetDto } from './client-timesheet.dto';
 export class TimesheetDto {
     @ApiModelProperty()
-    user: User;
+    user: UserTimesheetDto;
     @ApiModelProperty()
     task: string;
+    @ApiModelPropertyOptional()
+    project?: ProjectTimesheetDto;
     @ApiModelProperty()
-    project?: Project;
-    @ApiModelProperty()
-    client: Client;
+    client: ClientTimesheetDto;
     @ApiModelProperty()
     date: Date;
     @ApiModelProperty()

@@ -6,7 +6,8 @@ import { UserService } from './user.service';
 import config from '@app/config';
 import { UserController } from './user.controller';
 
-let imports: any = [];
+let imports: any = [
+];
 
 if (config.TYPEORM_CONNECTION) {
     imports.push(

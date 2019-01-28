@@ -8,6 +8,7 @@ export const swagger = (app) => {
         .setTitle('Timesheet')
         .setDescription('The API for the timesheets chrome extension.')
         .setVersion('1.0')
+        .addBearerAuth('Authorization', 'header')
         .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('api/swagger', app, document);
@@ -17,7 +18,7 @@ export const swagger = (app) => {
         .setDescription('Users API.')
         .setVersion('1.0')
         .addTag('Users')
-        .addBearerAuth()
+        .addBearerAuth('Authorization', 'header')
         .build();
     const userDocument = SwaggerModule.createDocument(app, userOptions, { include: [UserModule] });
     SwaggerModule.setup('api/swagger/users', app, userDocument);
@@ -27,6 +28,7 @@ export const swagger = (app) => {
         .setDescription('Projects API.')
         .setVersion('1.0')
         .addTag('Projects')
+        .addBearerAuth('Authorization', 'header')
         .build();
     const projectDocument = SwaggerModule.createDocument(app, projectOptions, { include: [ProjectModule] });
     SwaggerModule.setup('api/swagger/projects', app, projectDocument);
@@ -36,6 +38,7 @@ export const swagger = (app) => {
         .setDescription('Clients API')
         .setVersion('1.0')
         .addTag('Clients')
+        .addBearerAuth('Authorization', 'header')
         .build();
     const clientDocument = SwaggerModule.createDocument(app, clientOptions, { include: [ClientModule] })
     SwaggerModule.setup('api/swagger/clients', app, clientDocument);
@@ -45,6 +48,7 @@ export const swagger = (app) => {
         .setDescription('Timesheets API')
         .setVersion('1.0')
         .addTag('Timesheets')
+        .addBearerAuth('Authorization', 'header')
         .build();
     const timesheetDocument = SwaggerModule.createDocument(app, timesheetOptions, { include: [ClientModule] })
     SwaggerModule.setup('api/swagger/timesheets', app, timesheetDocument);

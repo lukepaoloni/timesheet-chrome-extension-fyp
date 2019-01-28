@@ -1,12 +1,15 @@
 import { EStatus } from '../shared/enum/status.enum';
 import { ClientRO } from './response/client.response';
 import { AbstractModel } from '../shared/model';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class Client extends AbstractModel<Client> {
     constructor(partial?: Partial<Client>) {
         super(partial);
     }
+    @ApiModelProperty()
     id: string;
+    @ApiModelProperty()
     name: string;
     status?: EStatus;
     getData(): ClientRO {

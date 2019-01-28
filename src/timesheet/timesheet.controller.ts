@@ -1,7 +1,9 @@
-import { Controller, Param, Body, Put, Delete, Post, Get } from '@nestjs/common';
+import { Controller, Param, Body, Put, Delete, Post, Get, UseGuards } from '@nestjs/common';
 import { TimesheetService } from './timesheet.service';
 import { TimesheetDto } from './dto/timesheet.dto';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { CurrentUser } from '@user/decorators/user.decorator';
 
 @ApiUseTags('Timesheets')
 @Controller('api/rest/timesheets')
@@ -14,8 +16,17 @@ export class TimesheetController {
     }
 
     @Post()
-    async create(@Body() data: TimesheetDto) {
-        const timesheet = await this.timesheetService.create(data);
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    async create(@CurrentUser() user, @Body() data: TimesheetDto) {
+        const timesheet = await this.timesheetService
+            .create(
+                {
+                    ...data,
+                    user: {
+                        email: user.email,
+                    }
+                });
         const save = await timesheet.save();
         const newTimesheet = await save.get();
         return newTimesheet.data();

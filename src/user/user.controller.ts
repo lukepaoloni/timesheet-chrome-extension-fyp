@@ -5,39 +5,25 @@ import { UserDto } from './dto/user.dto';
 import { ApiUseTags, ApiResponse, ApiCreatedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthDto } from 'src/auth/dto/auth.dto';
-import { AuthService } from '../auth/auth.service';
 import Config from '@app/config';
+import { Credentials } from '@shared/credentials.dto';
+import { CurrentUser } from './decorators/user.decorator';
+import { UserRO } from './response/user.response';
+import { LoginRO } from './response/login.response';
 @ApiUseTags('Users')
-@ApiBearerAuth()
 @Controller('api/rest/users')
 export class UserController {
-    constructor(private userService: UserService, private authService: AuthService) { }
+    constructor(private userService: UserService) { }
 
     @Post('login')
-    async login(@Body() data: AuthDto) {
-        if (Config.USE_CUSTOM_AUTHENTICATION) {
-            const isValid = await this.userService.userValid(data.email, data.password);
-            if (isValid) {
-                return await this.authService.createToken(data);
-            }
-            return { success: false, message: 'User credentials are not valid.' }
-        }
-        if (Config.USE_GOOGLE_AUTHENTICATION) {
-            // Do google login authentication
-        }
+    async login(@Body() credentials: Credentials): Promise<LoginRO> {
+        return await this.userService.login(credentials);
     }
 
     @Post('register')
-    async register(@Body() data: AuthDto) {
-        if (Config.USE_CUSTOM_AUTHENTICATION) {
-            const user = await this.userService.create(data);
-            const save = await user.save();
-            const newUser = await save.get();
-            return newUser.data();
-        }
-        if (Config.USE_GOOGLE_AUTHENTICATION) {
-            // Do google authentication register.
-        }
+    @ApiCreatedResponse({ description: 'The record has been successfully created.' })
+    async register(@Body() credentials: Credentials) {
+        return await this.userService.register(credentials);
     }
 
     @Get()
@@ -55,21 +41,32 @@ export class UserController {
         return newUser.data();
     }
 
+    @Get('me')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    async me(@CurrentUser() data: UserRO) {
+        return new User(data).getData();
+    }
+
     @Get(':id')
-    @UseGuards(AuthGuard('bearer'))
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     async getOne(@Param('id') id: string) {
         const awaitUser = await this.userService.getOne(id);
         const user = await awaitUser.get();
-        console.log(user.data());
-        return user.data();
+        return new User(user.data()).getData();
     }
 
     @Put(':id')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     async update(@Param('id') id: string, @Body() data: Partial<UserDto>) {
         return await this.userService.update(id, data);
     }
 
     @Delete(':id')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     async destroy(@Param('id') id: string) {
         return await this.userService.delete(id);
     }

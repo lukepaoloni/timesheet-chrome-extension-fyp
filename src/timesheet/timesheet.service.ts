@@ -23,8 +23,7 @@ export class TimesheetService extends AbstractService {
     }
 
     async create(data: TimesheetDto) {
-        this.data = data;
-        this.data.status = EStatus.Active;
+        super.create({ ...data, status: EStatus.Active });
         return this;
     }
 

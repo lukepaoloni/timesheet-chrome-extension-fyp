@@ -5,4 +5,5 @@ export interface UserRO {
     email: string;
     role: ERole;
     status: EStatus;
+    token?: string;
 }

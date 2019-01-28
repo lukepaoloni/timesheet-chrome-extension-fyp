@@ -18,12 +18,9 @@ export abstract class AbstractService {
     }
 
     async getAll() {
-        const collection = await this.awaitCollection;
-        const documents = collection.docs;
         let data = [];
-        documents.forEach((document) => {
-            data.push(document.data());
-        });
+        const collection = await this.collection.get()
+        collection.docs.map(doc => data.push(doc.data()))
         return data;
     }
 
@@ -54,10 +51,7 @@ export abstract class AbstractService {
                 await document.update({ ...data, updatedAt: new Date() });
             else
                 await document.update(data);
-            const newDoc = await document.get();
-            const _data = newDoc.data();
-            _data.success = true;
-            return _data;
+            return { ...data, success: true };
         }
         return { success: false, message: 'Unable to perform your request. Document doesn\'t exist.' }; // Document doesn't exist
     }
