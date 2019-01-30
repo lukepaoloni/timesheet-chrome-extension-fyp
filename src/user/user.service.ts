@@ -35,21 +35,16 @@ export class UserService extends AbstractService {
     }
 
     async login(credentials: Credentials): Promise<LoginRO> {
-        if (Config.USE_CUSTOM_AUTHENTICATION) {
-            const user = await this.getOneByEmailPassword(credentials.email, credentials.password);
-            if (!user) {
-                throw new UnauthorizedException('User not found or email/password was incorrect');
-            }
-            const payload: JwtPayload = {
-                email: user.email
-            }
-            this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
-            const token = await this.authService.signPayload(payload);
-            return { token, email: user.email };
+        const user = await this.getOneByEmailPassword(credentials.email, credentials.password);
+        if (!user) {
+            throw new UnauthorizedException('User not found or email/password was incorrect');
         }
-        if (Config.USE_GOOGLE_AUTHENTICATION) {
-
+        const payload: JwtPayload = {
+            email: user.email
         }
+        this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
+        const token = await this.authService.signPayload(payload);
+        return { token, email: user.email };
     }
 
     async register(credentials: Credentials): Promise<LoginRO | auth.UserCredential> {
