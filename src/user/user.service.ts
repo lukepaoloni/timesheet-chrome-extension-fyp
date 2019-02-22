@@ -1,11 +1,9 @@
-import { Injectable, Logger, UnauthorizedException, HttpException, HttpStatus, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, forwardRef, NotAcceptableException } from '@nestjs/common';
 import { User } from './user.model';
-// import { UserDTO } from './dto/user.dto';
 import { DatabaseService } from '@db/database.service';
 import { AbstractService } from '../shared/service';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import config from '@app/config';
 import { UserRO } from './response/user.response';
 import { AuthDto } from '../auth/dto/auth.dto';
 import { Credentials } from '../shared/credentials.dto';
@@ -34,17 +32,27 @@ export class UserService extends AbstractService {
         return collection;
     }
 
-    async login(credentials: Credentials): Promise<LoginRO> {
-        const user = await this.getOneByEmailPassword(credentials.email, credentials.password);
+    async login(credentials: Credentials): Promise<LoginRO | auth.UserCredential> {
+        const user = await this.getOneByEmail(credentials.email);
         if (!user) {
-            throw new UnauthorizedException('User not found or email/password was incorrect');
+            throw new UnauthorizedException('User was not found');
         }
-        const payload: JwtPayload = {
-            email: user.email
+        if (user.authType === 'CUSTOM') {
+            const isValid = await bcrypt.compare(credentials.password, user.password);
+            if (!isValid) {
+                throw new NotAcceptableException('Password is incorrect. Please try again.')
+            }
+            const payload: JwtPayload = {
+                email: user.email
+            }
+            this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
+            const token = await this.authService.signPayload(payload);
+            return { token, email: user.email };
         }
-        this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
-        const token = await this.authService.signPayload(payload);
-        return { token, email: user.email };
+
+        if (user.authType === 'GOOGLE') {
+            return await this.authService.login(credentials.email, credentials.password);
+        }
     }
 
     async register(credentials: Credentials): Promise<LoginRO | auth.UserCredential> {
@@ -69,26 +77,7 @@ export class UserService extends AbstractService {
             .where('email', '==', email)
             .limit(1);
         const users = await result.get();
-        return new User(users.docs[0].data());
-    }
-
-    async getOneByEmailPassword(email: string, password: string): Promise<User> {
-        const result = await this.db.firestore
-            .collection('users')
-            .where('email', '==', email)
-            .limit(1);
-        const users = await result.get();
-        const user = new User({ ...users.docs[0].data(), id: users.docs[0].id });
-        if (!user) {
-            // Email doesn't exist.
-            throw new HttpException('Invalid credentials. User does not exist with those credentials.', HttpStatus.BAD_REQUEST);
-        }
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) {
-            // Password was not correct.
-            throw new HttpException('Password was incorrect.', HttpStatus.BAD_REQUEST)
-        }
-        return user;
+        return new User({ ...users.docs[0].data(), id: users.docs[0].id });
     }
 
     async userValid(email: string, password: string) {
@@ -101,12 +90,12 @@ export class UserService extends AbstractService {
     }
 
     async create(data: UserDto | AuthDto) {
-        data.password = await bcrypt.hash(data.password, config.SALT_ROUNDS);
+        data.password = await bcrypt.hash(data.password, Config.SALT_ROUNDS);
         super.create(data);
         return this;
     }
 
-    async update(id, data: Partial<UserDto>) {
+    async update<UserDto>(id, data: Partial<UserDto>) {
         return await super.update(id, data);
     }
 

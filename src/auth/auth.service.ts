@@ -7,6 +7,8 @@ import { Credentials } from '../shared/credentials.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { sign } from 'jsonwebtoken';
 import { User } from '@user/user.model';
+import { auth } from 'firebase';
+import { LoginRO } from '../user/response/login.response';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +19,7 @@ export class AuthService {
     ) { }
 
     async createToken(credentials: Credentials) {
-        const user = await this.userService.login(credentials);
+        const user = await this.userService.login(credentials) as LoginRO;
         const accessToken = this.jwtService.sign({ email: user.email });
         return {
             expiresIn: Config.SESSION_EXPIRES_IN,
@@ -41,5 +43,9 @@ export class AuthService {
             user = await this.userService.getOneByEmail(token.email);
 
         return user;
+    }
+
+    async login(email: string, password: string) {
+        return await auth().signInWithEmailAndPassword(email, password);
     }
 }

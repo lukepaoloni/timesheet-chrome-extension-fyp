@@ -10,13 +10,15 @@ import { Credentials } from '@shared/credentials.dto';
 import { CurrentUser } from './decorators/user.decorator';
 import { UserRO } from './response/user.response';
 import { LoginRO } from './response/login.response';
+import { auth } from 'firebase';
 @ApiUseTags('Users')
 @Controller('api/rest/users')
 export class UserController {
     constructor(private userService: UserService) { }
 
     @Post('login')
-    async login(@Body() credentials: Credentials): Promise<LoginRO> {
+    @ApiResponse({ status: 200, description: `You've successfully logged in.` })
+    async login(@Body() credentials: Credentials): Promise<LoginRO | auth.UserCredential> {
         return await this.userService.login(credentials);
     }
 

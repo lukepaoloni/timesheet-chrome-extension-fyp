@@ -19,6 +19,7 @@ export class User extends AbstractModel<User> {
     email: string;
     password: string;
     role: ERole;
+    authType: 'CUSTOM' | 'GOOGLE';
     status: EStatus;
     createdAt: Date;
     updatedAt: Date;
