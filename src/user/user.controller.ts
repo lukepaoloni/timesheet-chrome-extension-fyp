@@ -4,8 +4,6 @@ import { User } from './user.model';
 import { UserDto } from './dto/user.dto';
 import { ApiUseTags, ApiResponse, ApiCreatedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthDto } from 'src/auth/dto/auth.dto';
-import Config from '@app/config';
 import { Credentials } from '@shared/credentials.dto';
 import { CurrentUser } from './decorators/user.decorator';
 import { UserRO } from './response/user.response';

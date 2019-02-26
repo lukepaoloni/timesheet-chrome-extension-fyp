@@ -9,11 +9,12 @@ export const generateClient = async (client) => {
 }
 
 export async function Seed(collection: string = 'clients') {
-    const name = faker.company.companyName();
+    const label = faker.company.companyName();
     const status = EStatus.Active;
 
     const client = new Client();
-    client.name = name;
+    client.label = label;
+    client.value = label.toLowerCase().replace(/\W/g, '_')
     client.status = status;
     await generateClient(client);
 }

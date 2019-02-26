@@ -25,12 +25,15 @@ export class ClientService extends AbstractService {
     }
 
     async create(data: ClientDto) {
+        if (!data.value) {
+            data.value = data.label.toLowerCase().replace(/\W/g, '_')
+        }
         this.data = data;
         this.data.status = EStatus.Active;
         return this;
     }
 
-    async update(id, data: Partial<ClientDto>) {
+    async update<ClientDto>(id, data: Partial<ClientDto>) {
         return await super.update(id, data);
     }
 }

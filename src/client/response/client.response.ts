@@ -1,3 +1,4 @@
 export interface ClientRO {
-    name: string;
+    label: string;
+    value: string;
 }

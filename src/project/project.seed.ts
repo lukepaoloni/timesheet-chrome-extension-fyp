@@ -9,11 +9,12 @@ export const generateProject = async (project) => {
 }
 
 export async function Seed(collection: string = 'projects') {
-    const name = `${faker.company.companyName()} ${faker.random.word()}`;
+    const label = `${faker.company.companyName()} ${faker.random.word()}`;
     const status = EStatus.Active;
 
     const project = new Project();
-    project.name = name;
+    project.label = label;
+    project.value = label.toLowerCase().replace(/\W/g, '_')
     project.status = status;
     await generateProject(project);
 }

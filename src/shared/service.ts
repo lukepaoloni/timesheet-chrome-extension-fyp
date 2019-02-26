@@ -18,10 +18,8 @@ export abstract class AbstractService {
     }
 
     async getAll() {
-        let data = [];
         const collection = await this.collection.get()
-        collection.docs.map(doc => data.push(doc.data()))
-        return data;
+        return collection.docs.map(doc => { return { ...doc.data(), id: doc.id } })
     }
 
     create(data) {

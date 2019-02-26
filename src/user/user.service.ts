@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { auth } from 'firebase';
 import { LoginRO } from './response/login.response';
+import config from '@app/config';
 
 @Injectable()
 export class UserService extends AbstractService {
@@ -43,11 +44,16 @@ export class UserService extends AbstractService {
                 throw new NotAcceptableException('Password is incorrect. Please try again.')
             }
             const payload: JwtPayload = {
+                id: user.id,
                 email: user.email
             }
             this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
             const token = await this.authService.signPayload(payload);
-            return { token, email: user.email };
+            const date = new Date()
+            date.setSeconds(
+                date.getSeconds() + config.SESSION_EXPIRES_IN
+            )
+            return { token, email: user.email, expires: date } as any;
         }
 
         if (user.authType === 'GOOGLE') {

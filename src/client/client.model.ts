@@ -10,11 +10,13 @@ export class Client extends AbstractModel<Client> {
     @ApiModelProperty()
     id: string;
     @ApiModelProperty()
-    name: string;
+    label: string;
+    value: string;
     status?: EStatus;
+
     getData(): ClientRO {
-        const { name } = this;
-        const responseObject: ClientRO = { name };
+        const { label, value } = this;
+        const responseObject: ClientRO = { label, value };
 
         return responseObject;
     }

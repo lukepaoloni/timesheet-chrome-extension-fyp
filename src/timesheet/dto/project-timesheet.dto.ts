@@ -1,7 +1,7 @@
-import { ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiModelPropertyOptional, ApiModelProperty } from '@nestjs/swagger';
 export class ProjectTimesheetDto {
+    @ApiModelProperty()
+    label: string;
     @ApiModelPropertyOptional()
-    id?: string;
-    @ApiModelPropertyOptional()
-    name?: string;
+    value?: string;
 }

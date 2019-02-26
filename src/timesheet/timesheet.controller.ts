@@ -4,11 +4,15 @@ import { TimesheetDto } from './dto/timesheet.dto';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '@user/decorators/user.decorator';
+import { UserService } from '@user/user.service';
 
 @ApiUseTags('Timesheets')
 @Controller('api/rest/timesheets')
 export class TimesheetController {
-    constructor(private timesheetService: TimesheetService) { }
+    constructor(
+        private readonly timesheetService: TimesheetService,
+        private readonly userService: UserService
+    ) { }
 
     @Get()
     async getAll() {
@@ -24,7 +28,9 @@ export class TimesheetController {
                 {
                     ...data,
                     user: {
+                        id: user.id,
                         email: user.email,
+                        name: user.name ? user.name : ''
                     }
                 });
         const save = await timesheet.save();

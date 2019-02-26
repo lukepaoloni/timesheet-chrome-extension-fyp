@@ -1,7 +1,8 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-export class ClientDto {
-    @ApiModelProperty()
+
+export class ClientDTO {
+    @ApiModelPropertyOptional()
     label: string;
     @ApiModelPropertyOptional()
-    value?: string
+    value?: string;
 }

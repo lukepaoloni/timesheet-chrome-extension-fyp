@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { AbstractService } from '../shared/service';
 import { DatabaseService } from '@db/database.service';
 import { ProjectRO } from './response/project.response';
@@ -22,13 +22,24 @@ export class ProjectService extends AbstractService {
         return collection;
     }
 
+    async getAllByClient(clientId) {
+        if (!clientId) {
+            throw new UnprocessableEntityException('You must specify a client ID as a parameter.')
+        }
+        const collection = await this.collection.where('clientId', '==', clientId).get()
+        return collection.docs.map(doc => { return { ...doc.data(), id: doc.id } })
+    }
+
     async create(data: ProjectDto) {
+        if (!data.value) {
+            data.value = data.label.toLowerCase().replace(/\W/g, '_')
+        }
         this.data = data;
         this.data.status = EStatus.Active;
         return this;
     }
 
-    async update(id, data: Partial<ProjectDto>) {
+    async update<ProjectDto>(id, data: Partial<ProjectDto>) {
         return await super.update(id, data);
     }
 }

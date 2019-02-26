@@ -22,12 +22,12 @@ export class TimesheetService extends AbstractService {
         return collection;
     }
 
-    async create(data: TimesheetDto) {
+    async create(data: Partial<TimesheetDto>) {
         super.create({ ...data, status: EStatus.Active });
         return this;
     }
 
-    async update(id, data: Partial<TimesheetDto>) {
+    async update<TimesheetDto>(id, data: Partial<TimesheetDto>) {
         return await super.update(id, data);
     }
 }

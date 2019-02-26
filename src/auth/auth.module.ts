@@ -13,14 +13,13 @@ import Config from '@app/config';
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secretOrPrivateKey: Config.JWT_SECRET_KEY,
+      secretOrPrivateKey: Config.JWT_SECRET_KEY || 'secretKey',
       signOptions: {
         expiresIn: Config.SESSION_EXPIRES_IN,
       },
     }),
   ],
-  providers: [AuthService, HttpStrategy, JwtStrategy],
-  controllers: [],
-  exports: [AuthService]
+  providers: [AuthService, JwtStrategy],
+  exports: [AuthService, JwtStrategy]
 })
 export class AuthModule { }

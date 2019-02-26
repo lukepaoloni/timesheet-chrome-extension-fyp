@@ -35,14 +35,8 @@ export class AuthService {
         return await this.userService.getOneByEmail(payload.email);
     }
 
-    async validateUser(token: any): Promise<UserRO> {
-        let user: UserRO = undefined;
-        if (typeof token === 'string')
-            user = await this.userService.getOneByToken(token);
-        if (typeof token === 'object')
-            user = await this.userService.getOneByEmail(token.email);
-
-        return user;
+    async validateUser(payload: JwtPayload): Promise<UserRO> {
+        return await this.userService.getOneByEmail(payload.email);
     }
 
     async login(email: string, password: string) {

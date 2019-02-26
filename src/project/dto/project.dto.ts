@@ -1,8 +1,12 @@
-import { Client } from '../../client/client.model';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ClientDTO } from './client.dto';
 export class ProjectDto {
     @ApiModelProperty()
-    name: string;
+    label: string;
+    @ApiModelPropertyOptional()
+    value?: string
     @ApiModelProperty()
-    client: Client;
+    client: ClientDTO;
+    @ApiModelProperty()
+    clientId: string;
 }

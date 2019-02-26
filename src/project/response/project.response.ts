@@ -1,5 +1,8 @@
 import { Client } from '../../client/client.model';
+import { ClientDTO } from '../dto/client.dto';
 export interface ProjectRO {
-    name: string;
-    client: Client;
+    label: string;
+    value: string
+    client: ClientDTO;
+    clientId: string
 }
