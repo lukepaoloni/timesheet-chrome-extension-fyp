@@ -49,6 +49,36 @@ class Config {
     @inject({ cast: toNumber, source })
     SESSION_EXPIRES_IN: number | undefined;
 
+    @inject({ cast: toString, source })
+    APP_DOMAIN: string
+
+    @inject({ cast: toString, source })
+    GOOGLE_CLIENT_ID: string | undefined
+
+    @inject({ cast: toString, source })
+    GOOGLE_CLIENT_SECRET: string | undefined
+
+    @inject({ cast: toString, source })
+    GOOGLE_REDIRECT_URI: string | undefined
+
+    @inject({ cast: toString, source })
+    GITHUB_CLIENT_ID: string | undefined
+
+    @inject({ cast: toString, source })
+    GITHUB_CLIENT_SECRET: string | undefined
+
+    @inject({ cast: toString, source })
+    GITHUB_CALLBACK_URL: string | undefined
+
+    @inject({ cast: toString, source })
+    BITBUCKET_CLIENT_ID: string | undefined
+
+    @inject({ cast: toString, source })
+    BITBUCKET_CLIENT_SECRET: string | undefined
+
+    @inject({ cast: toString, source })
+    BITBUCKET_CALLBACK_URL: string | undefined
+
 }
 
 export default new Config();

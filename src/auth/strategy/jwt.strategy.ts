@@ -11,7 +11,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: Config.JWT_SECRET_KEY
         })
-        console.log(Config.JWT_SECRET_KEY)
     }
 
     async validate(payload: any, done: VerifiedCallback) {

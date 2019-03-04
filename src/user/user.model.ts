@@ -6,7 +6,21 @@ import { AbstractModel } from '../shared/model';
 import * as jwt from 'jsonwebtoken';
 import Config from '@app/config';
 import { ApiModelProperty } from '@nestjs/swagger';
-
+import { Provider } from '@auth/enum/provider.enum';
+export interface Integrations {
+    google: {
+        id: string
+        token: string
+    }
+    github: {
+        id: string
+        token: string
+    }
+    bitbucket: {
+        id: string
+        token: string
+    }
+}
 export class User extends AbstractModel<User> {
     constructor(partial?: Partial<User>) {
         super(partial)
@@ -19,7 +33,8 @@ export class User extends AbstractModel<User> {
     email: string;
     password: string;
     role: ERole;
-    authType: 'CUSTOM' | 'GOOGLE';
+    authType?: 'CUSTOM' | 'GOOGLE';
+    integrations: Integrations
     status: EStatus;
     createdAt: Date;
     updatedAt: Date;

@@ -19,7 +19,8 @@
       "@shared/*": ["./src/shared/*"],
       "@client/*": ["./src/client/*"],
       "@project/*": ["./src/project/*"],
-      "@timesheet/*": ["./src/timesheet/*"]
+      "@timesheet/*": ["./src/timesheet/*"],
+      "@auth/*": ["./src/auth/*"]
     }
   },
   "exclude": ["node_modules"]

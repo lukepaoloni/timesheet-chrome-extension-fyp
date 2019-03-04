@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, Inject, forwardRef, NotAcceptableException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, forwardRef, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { User } from './user.model';
 import { DatabaseService } from '@db/database.service';
 import { AbstractService } from '../shared/service';
@@ -83,7 +83,9 @@ export class UserService extends AbstractService {
             .where('email', '==', email)
             .limit(1);
         const users = await result.get();
-        return new User({ ...users.docs[0].data(), id: users.docs[0].id });
+        if (users.docs[0])
+            return new User({ ...users.docs[0].data(), id: users.docs[0].id });
+        return null;
     }
 
     async userValid(email: string, password: string) {
@@ -95,8 +97,9 @@ export class UserService extends AbstractService {
         return await bcrypt.compare(password, users.docs[0].data().password);
     }
 
-    async create(data: UserDto | AuthDto) {
-        data.password = await bcrypt.hash(data.password, Config.SALT_ROUNDS);
+    async create(data: Partial<UserDto | AuthDto>) {
+        if (data.password)
+            data.password = await bcrypt.hash(data.password, Config.SALT_ROUNDS);
         super.create(data);
         return this;
     }

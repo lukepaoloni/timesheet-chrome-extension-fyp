@@ -1,4 +1,4 @@
-import { Injectable, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, forwardRef, Inject, ForbiddenException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { UserRO } from '@user/response/user.response';
 import { JwtService } from '@nestjs/jwt';
@@ -9,6 +9,7 @@ import { sign } from 'jsonwebtoken';
 import { User } from '@user/user.model';
 import { auth } from 'firebase';
 import { LoginRO } from '../user/response/login.response';
+import { Provider } from './enum/provider.enum';
 
 @Injectable()
 export class AuthService {
@@ -27,6 +28,19 @@ export class AuthService {
         };
     }
 
+    async validateOAuthLogin(thirdPartyId: string, provider: Provider) {
+        try {
+            return sign({
+                thirdPartyId,
+                provider,
+            }, Config.JWT_SECRET_KEY, {
+                    expiresIn: Config.SESSION_EXPIRES_IN,
+                });
+        } catch (err) {
+            throw new ForbiddenException('validateOAuthLogin', err.message);
+        }
+    }
+
     async signPayload(payload: JwtPayload): Promise<string> {
         return sign(payload, Config.JWT_SECRET_KEY, { expiresIn: Config.SESSION_EXPIRES_IN });
     }
@@ -35,7 +49,7 @@ export class AuthService {
         return await this.userService.getOneByEmail(payload.email);
     }
 
-    async validateUser(payload: JwtPayload): Promise<UserRO> {
+    async validateUser(payload: Partial<JwtPayload>): Promise<UserRO> {
         return await this.userService.getOneByEmail(payload.email);
     }
 
