@@ -2,12 +2,14 @@ import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { AppGateway } from '@app/app.gateway';
 
 @ApiUseTags('Authentication')
 @Controller('api/rest/auth')
 export class AuthController {
     constructor(
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
+        private appGateway: AppGateway
     ) { }
 
     @Get('google')
@@ -19,7 +21,6 @@ export class AuthController {
     @Get('google/callback')
     @UseGuards(AuthGuard('google'))
     googleLoginCallback(@Req() req) {
-        console.log('req.user', req.user)
         return req.user
     }
 

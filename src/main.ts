@@ -8,22 +8,16 @@ import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import { swagger } from './shared/swagger';
 import * as expressSession from 'express-session'
-import { WsAdapter } from '@nestjs/websockets';
-import * as socketio from 'socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useWebSocketAdapter(new WsAdapter(app.getHttpServer()));
-  // Connecting sockets to the server and adding them to the request
-  // so that we can access them later in the controller
-  const io = socketio(app.getHttpServer());
-  app.set('io', io);
-
   swagger(app);
   app.use(compression());
   app.use(helmet());
-  app.enableCors();
+  // app.enableCors({
+
+  // });
   // app.use(csurf()); // Enables CSRF. But it needs to be configured correctly.
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

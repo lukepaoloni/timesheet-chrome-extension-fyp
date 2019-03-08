@@ -1,3 +1,4 @@
+import { AppGateway } from '@app/app.gateway';
 import { Module, Global } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserModule } from '@user/user.module';
@@ -22,7 +23,7 @@ import { BitbucketStrategy } from './strategy/bitbucket.strategy';
       },
     }),
   ],
-  providers: [AuthService, JwtStrategy, GoogleStrategy, GithubStrategy, BitbucketStrategy],
+  providers: [AuthService, JwtStrategy, GoogleStrategy, GithubStrategy, BitbucketStrategy, AppGateway],
   exports: [AuthService, JwtStrategy],
   controllers: [AuthController]
 })
