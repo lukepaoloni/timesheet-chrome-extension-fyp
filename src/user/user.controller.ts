@@ -45,6 +45,7 @@ export class UserController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async me(@CurrentUser() data: UserRO) {
+        console.log('data', data)
         return new User(data).getData();
     }
 

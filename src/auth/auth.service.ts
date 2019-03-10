@@ -41,7 +41,7 @@ export class AuthService {
         }
     }
 
-    async signPayload(payload: JwtPayload): Promise<string> {
+    async signPayload(payload: Partial<JwtPayload>): Promise<string> {
         return sign(payload, Config.JWT_SECRET_KEY, { expiresIn: Config.SESSION_EXPIRES_IN });
     }
 
@@ -50,7 +50,13 @@ export class AuthService {
     }
 
     async validateUser(payload: Partial<JwtPayload>): Promise<UserRO> {
-        return await this.userService.getOneByEmail(payload.email);
+        if (payload.email) {
+            return await this.userService.getOneByEmail(payload.email);
+        }
+
+        if (payload.thirdPartyId) {
+            return await this.userService.getOneByProvider(payload.provider, payload.thirdPartyId)
+        }
     }
 
     async login(email: string, password: string) {

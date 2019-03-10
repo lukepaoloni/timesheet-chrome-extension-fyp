@@ -13,6 +13,7 @@ import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { auth } from 'firebase';
 import { LoginRO } from './response/login.response';
 import config from '@app/config';
+import { Provider } from '@auth/enum/provider.enum';
 
 @Injectable()
 export class UserService extends AbstractService {
@@ -33,32 +34,37 @@ export class UserService extends AbstractService {
         return collection;
     }
 
+    async getOneByProvider(provider: Provider, thirdPartyId: string) {
+        const result = await this.db.firestore
+            .collection('users')
+            .where(`integrations.${provider}.id`, '==', thirdPartyId)
+            .limit(1);
+        const users = await result.get();
+        if (users.docs[0])
+            return new User({ ...users.docs[0].data(), id: users.docs[0].id });
+        return null;
+    }
+
     async login(credentials: Credentials): Promise<LoginRO | auth.UserCredential> {
         const user = await this.getOneByEmail(credentials.email);
         if (!user) {
             throw new UnauthorizedException('User was not found');
         }
-        if (user.authType === 'CUSTOM') {
-            const isValid = await bcrypt.compare(credentials.password, user.password);
-            if (!isValid) {
-                throw new NotAcceptableException('Password is incorrect. Please try again.')
-            }
-            const payload: JwtPayload = {
-                id: user.id,
-                email: user.email
-            }
-            this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
-            const token = await this.authService.signPayload(payload);
-            const date = new Date()
-            date.setSeconds(
-                date.getSeconds() + config.SESSION_EXPIRES_IN
-            )
-            return { token, email: user.email, expires: date } as any;
+        const isValid = await bcrypt.compare(credentials.password, user.password);
+        if (!isValid) {
+            throw new NotAcceptableException('Password is incorrect. Please try again.')
         }
-
-        if (user.authType === 'GOOGLE') {
-            return await this.authService.login(credentials.email, credentials.password);
+        const payload: Partial<JwtPayload> = {
+            id: user.id,
+            email: user.email
         }
+        this.collection.doc(user.id).update({ lastLoggedIn: new Date() });
+        const token = await this.authService.signPayload(payload);
+        const date = new Date()
+        date.setSeconds(
+            date.getSeconds() + config.SESSION_EXPIRES_IN
+        )
+        return { token, email: user.email, expires: date } as any;
     }
 
     async register(credentials: Credentials): Promise<LoginRO | auth.UserCredential> {

@@ -14,11 +14,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: any, done: VerifiedCallback) {
-        console.log(payload)
         const user = await this.authService.validateUser(payload);
         if (!user) {
             return done(new UnauthorizedException(), false);
         }
-        return done(null, user, payload.iat);
+        return done(null, user, payload);
     }
 }
