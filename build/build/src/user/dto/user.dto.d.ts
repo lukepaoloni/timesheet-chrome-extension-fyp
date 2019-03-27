@@ -1,8 +1,10 @@
-import { IRole, IStatus } from '../interfaces';
+import { ERole, EStatus } from '@shared/enum';
+import { Integrations } from '../user.model';
 export declare class UserDto {
-    readonly email: string;
-    readonly name: string;
+    email: string;
+    name: string;
     password: string;
-    readonly role: IRole;
-    readonly status: IStatus;
+    role: ERole;
+    status: EStatus;
+    integrations: Integrations;
 }

@@ -1,12 +1,30 @@
 import { UserService } from './user.service';
-import { User } from './user.model';
 import { UserDto } from './dto/user.dto';
+import { Credentials } from '@shared/credentials.dto';
+import { UserRO } from './response/user.response';
+import { LoginRO } from './response/login.response';
+import { auth } from 'firebase';
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
-    getAll(): Promise<import("./response/user.response").UserRO[]>;
+    login(credentials: Credentials): Promise<LoginRO | auth.UserCredential>;
+    register(credentials: Credentials): Promise<LoginRO | auth.UserCredential>;
+    getAll(): Promise<UserRO[]>;
     create(data: UserDto): Promise<import("firebase").firestore.DocumentData>;
-    getOne(id: string): Promise<import("firebase").firestore.DocumentData>;
-    update(id: string, data: Partial<User>): Promise<void>;
-    destroy(id: string): Promise<void>;
+    me(data: UserRO): Promise<UserRO>;
+    getOne(id: string): Promise<UserRO>;
+    update(id: string, data: Partial<UserDto>): Promise<{
+        success: boolean;
+        message?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+    }>;
+    destroy(id: string): Promise<{
+        success: boolean;
+        message?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+    }>;
 }
