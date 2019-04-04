@@ -14,7 +14,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
             clientSecret: Config.GITHUB_CLIENT_SECRET,
             callbackURL: Config.GITHUB_CALLBACK_URL,
             passReqToCallback: true,
-            scope: ['profile', 'user:email'],
+            scope: ['profile', 'user:email', 'repo', 'read:org', 'notifications'],
         }, async (request, accessToken, refreshToken, profile, done) => {
             const email = profile.emails[0].value
             const jwt: string = await this.authService.validateOAuthLogin(profile.id, Provider.GITHUB);
