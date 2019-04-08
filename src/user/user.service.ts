@@ -80,7 +80,16 @@ export class UserService extends AbstractService {
     credentials: Credentials,
   ): Promise<LoginRO | auth.UserCredential> {
     if (Config.USE_CUSTOM_AUTHENTICATION) {
-      const user = await this.create({ ...credentials, authType: 'CUSTOM' });
+      const user = await this.create({
+        ...credentials,
+        authType: 'CUSTOM',
+        settings: {
+          dateTimeFormat: 'hh:mm',
+          enableNotifications: false,
+          weeklySubmissions: false,
+          weeklyUpdates: false,
+        },
+      });
       await user.save();
       return await this.login(credentials);
     }

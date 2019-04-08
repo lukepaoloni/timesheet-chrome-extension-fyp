@@ -51,7 +51,7 @@ export abstract class AbstractService {
         await document.update({ ...data, updatedAt: new Date() });
       else await document.update(data);
       const getUpdatedDoc = await document.get();
-      return { ...getUpdatedDoc.data(), success: true };
+      return getUpdatedDoc.data();
     }
     return {
       success: false,

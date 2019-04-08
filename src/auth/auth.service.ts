@@ -75,6 +75,10 @@ export class AuthService {
   }
 
   async validateUser(payload: Partial<JwtPayload>) {
+    if (payload.id) {
+      return await this.userService.getOne(payload.id);
+    }
+
     if (payload.email) {
       return await this.userService.getOneByEmail(payload.email);
     }

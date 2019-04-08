@@ -8,6 +8,7 @@ import {
   Param,
   UseGuards,
   Req,
+  ForbiddenException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.model';
@@ -96,15 +97,26 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   async updateMe(@CurrentUser() user: any, @Body() body: UserDto) {
-    body.email = body.email.trim();
-    return await this.userService.update(user, body);
+    if (body.email) {
+      body.email = body.email.trim();
+      const emailExists = await this.userService.getOneByEmail(body.email);
+      console.log('email exists', emailExists);
+      if (emailExists) {
+        throw new ForbiddenException(
+          `That email currently exists. Please try a different email.`,
+        );
+      }
+    }
+    const data = await this.userService.update(user, body);
+    return new User(data).getData();
   }
 
   @Put(':id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   async update(@Param('id') id: string, @Body() data: Partial<UserDto>) {
-    return await this.userService.update(id, data);
+    const newData = await this.userService.update(id, data);
+    return new User(newData).getData();
   }
 
   @Delete(':id')
