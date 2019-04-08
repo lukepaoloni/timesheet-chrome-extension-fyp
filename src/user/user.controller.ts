@@ -24,6 +24,7 @@ import { CurrentUser } from './decorators/user.decorator';
 import { UserRO } from './response/user.response';
 import { LoginRO } from './response/login.response';
 import { auth } from 'firebase';
+
 @ApiUseTags('Users')
 @Controller('api/rest/users')
 export class UserController {
@@ -69,8 +70,17 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   async me(@CurrentUser() data: UserRO) {
-    console.log('data', data);
-    return new User(data).getData();
+    const user = await this.userService.getOne(data);
+    const userData = await user.get();
+    return new User(userData.data()).getData();
+  }
+
+  @Put('me/email')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async changeEmail(@CurrentUser() user: any, @Body() body: any) {
+    body.email = body.email.trim();
+    return await this.userService.update(user, body);
   }
 
   @Get(':id')
@@ -86,9 +96,8 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   async updateMe(@CurrentUser() user: any, @Body() body: UserDto) {
-    console.log('user', user);
-    // const id = await this.userService.getOne()
-    // return await this.userService.update(id, body)
+    body.email = body.email.trim();
+    return await this.userService.update(user, body);
   }
 
   @Put(':id')

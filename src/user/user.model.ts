@@ -5,8 +5,9 @@ import { UserRO } from './response/user.response';
 import { AbstractModel } from '../shared/model';
 import * as jwt from 'jsonwebtoken';
 import Config from '@app/config';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { Provider } from '@auth/enum/provider.enum';
+import { Settings } from './settings';
 class IntegrationDto {
   @ApiModelProperty()
   id: string;
@@ -35,6 +36,8 @@ export class User extends AbstractModel<User> {
   role: ERole;
   authType?: 'CUSTOM' | 'GOOGLE';
   integrations: Integrations;
+  @ApiModelPropertyOptional()
+  settings?: Settings;
   status: EStatus;
   createdAt: Date;
   updatedAt: Date;
@@ -49,8 +52,15 @@ export class User extends AbstractModel<User> {
   }
 
   getData(): UserRO {
-    const { name, email, role, status } = this;
-    const responseObject: UserRO = { name, email, role, status };
+    const { name, email, role, status, integrations, settings } = this;
+    const responseObject: UserRO = {
+      name,
+      email,
+      role,
+      status,
+      integrations,
+      settings,
+    };
 
     return responseObject;
   }

@@ -1,6 +1,7 @@
 import { ERole, EStatus } from '@shared/enum';
 import { ApiModelPropertyOptional } from '@nestjs/swagger';
 import { Integrations } from '../user.model';
+import { Settings } from '@user/settings';
 export class UserDto {
   @ApiModelPropertyOptional()
   email?: string;
@@ -14,4 +15,6 @@ export class UserDto {
   status?: EStatus;
   @ApiModelPropertyOptional()
   integrations?: Integrations;
+  @ApiModelPropertyOptional()
+  settings?: Settings;
 }
