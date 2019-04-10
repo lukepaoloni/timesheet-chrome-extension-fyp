@@ -97,15 +97,13 @@ export class UserController {
         if (body.email) {
             body.email = body.email.trim();
             const emailExists = await this.userService.getOneByEmail(body.email);
-            console.log('email exists', emailExists);
             if (emailExists) {
                 throw new ForbiddenException(
                     `That email currently exists. Please try a different email.`,
                 );
             }
         }
-        const data = await this.userService.update(user, body);
-        return new User(data).getData();
+        return await this.userService.update(user, body);
     }
 
     @Put(':id')
@@ -121,5 +119,25 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     async destroy(@Param('id') id: string) {
         return await this.userService.delete(id);
+    }
+
+    @Post('me/integrations/github/import')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    async importIntegration(@CurrentUser() data: any) {
+        const user = await this.userService.getOne(data);
+        const existingData = await user.get();
+        user.update({
+            integrations: {
+                github: {
+                    ...existingData.data().integrations.github,
+                    lastMigratedDate: new Date(),
+                },
+            },
+        });
+        return {
+            success: true,
+            message: 'Successfully updated the record.',
+        };
     }
 }

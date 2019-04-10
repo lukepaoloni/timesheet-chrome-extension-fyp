@@ -17,7 +17,7 @@ import { Credentials } from '../shared/credentials.dto';
 import Config from '@app/config';
 import { AuthService } from '../auth/auth.service';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
-import { auth, database, firestore } from 'firebase';
+import { auth, firestore } from 'firebase';
 import { LoginRO } from './response/login.response';
 import config from '@app/config';
 import { Provider } from '@auth/enum/provider.enum';
@@ -130,8 +130,8 @@ export class UserService extends AbstractService {
         return this;
     }
 
-    async update<UserDto>(id, data: Partial<UserDto>) {
-        return await super.update(id, data);
+    update<UserDto>(id, data: Partial<UserDto>) {
+        return super.update(id, data);
     }
 
     async getOneByToken(token): Promise<User | undefined> {
