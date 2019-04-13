@@ -20,11 +20,19 @@ import { CurrentUser } from './decorators/user.decorator';
 import { UserRO } from './response/user.response';
 import { LoginRO } from './response/login.response';
 import { auth } from 'firebase';
+import * as webPush from 'web-push';
+import config from '@app/config';
 
 @ApiUseTags('Users')
 @Controller('api/rest/users')
 export class UserController {
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService) {
+        webPush.setVapidDetails(
+            'mailto:lukepaoloni.me@gmail.com',
+            config.PUSH_NOTIFICATION_PUBLIC_KEY,
+            config.PUSH_NOTIFICATION_PRIVATE_KEY,
+        );
+    }
 
     @Post('login')
     @ApiResponse({ status: 200, description: `You've successfully logged in.` })
@@ -138,6 +146,40 @@ export class UserController {
         return {
             success: true,
             message: 'Successfully updated the record.',
+        };
+    }
+
+    @Post('subscribe')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    async subscribe(@CurrentUser() id: any, @Body() body: any) {
+        console.log('id', id);
+        this.userService.update(id, { fcmPayload: body });
+        try {
+            return {
+                success: true,
+                message: 'Successfully subscribed.',
+            };
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    @Post('send')
+    async sendNotifications(@Body() body: any) {
+        const payload = JSON.stringify(body);
+        const users = await this.userService.getAllForPushNotifications();
+        for (const user of users) {
+            try {
+                await webPush.sendNotification(JSON.parse(user.fcmPayload), payload);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return {
+            success: true,
+            message: 'Successfully sent notifications.',
         };
     }
 }

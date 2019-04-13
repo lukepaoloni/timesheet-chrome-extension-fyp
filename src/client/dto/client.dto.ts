@@ -3,5 +3,7 @@ export class ClientDto {
     @ApiModelProperty()
     label: string;
     @ApiModelPropertyOptional()
-    value?: string
+    value?: string;
+    @ApiModelPropertyOptional()
+    integrations: any;
 }

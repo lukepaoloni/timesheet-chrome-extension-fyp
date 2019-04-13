@@ -34,6 +34,7 @@
     "@types/express-session": "^1.15.12",
     "@types/passport-github": "^1.1.4",
     "@types/passport-google-oauth": "^1.0.39",
+    "@types/web-push": "^3.3.0",
     "apollo-server-express": "^2.3.1",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
@@ -69,7 +70,8 @@
     "typeorm": "^0.2.11",
     "typeorm-seeding": "^1.0.0-beta.6",
     "typescript": "^3.0.1",
-    "typescript-stringcaster": "^1.0.2"
+    "typescript-stringcaster": "^1.0.2",
+    "web-push": "^3.3.3"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.1.0",

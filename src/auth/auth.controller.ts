@@ -3,7 +3,7 @@ import { ApiUseTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AppGateway } from '@app/app.gateway';
-import { CurrentUser } from '../user/decorators/user.decorator';
+import * as jwt from 'jsonwebtoken';
 
 @ApiUseTags('Authentication')
 @Controller('api/rest/auth')
@@ -45,5 +45,20 @@ export class AuthController {
     @UseGuards(AuthGuard('bitbucket'))
     bitbucketLoginCallback(@Req() req) {
         return req.user;
+    }
+
+    @Get('jwt/verify')
+    verifyToken(@Query('token') token: string) {
+        const { exp } = jwt.decode(token) as any;
+        if (Date.now() / 1000 > exp) {
+            return {
+                valid: false,
+                message: 'Token has expired.',
+            };
+        }
+        return {
+            valid: true,
+            message: 'Token is valid.',
+        };
     }
 }

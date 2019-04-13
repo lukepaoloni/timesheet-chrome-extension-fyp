@@ -24,11 +24,22 @@ export class ClientService extends AbstractService {
         return collection;
     }
 
-    async create(data: ClientDto) {
+    async doesClientExist(data: any) {
+        const clients = await this.getAll<Client>();
         if (!data.value) {
-            data.value = data.label.toLowerCase().replace(/\W/g, '_')
+            data.value = data.label.toLowerCase().replace(/\W/g, '_');
         }
-        this.data = data;
+        if (data.integrations) {
+            return clients.find(client => client.integration.id === data.integration.id);
+        }
+        return clients.find(client => client.value === data.value);
+    }
+
+    async create(data: ClientDto) {
+        super.create(data);
+        if (!data.value) {
+            data.value = data.label.toLowerCase().replace(/\W/g, '_');
+        }
         this.data.status = EStatus.Active;
         return this;
     }

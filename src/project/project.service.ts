@@ -24,15 +24,28 @@ export class ProjectService extends AbstractService {
 
     async getAllByClient(clientId) {
         if (!clientId) {
-            throw new UnprocessableEntityException('You must specify a client ID as a parameter.')
+            throw new UnprocessableEntityException('You must specify a client ID as a parameter.');
         }
-        const collection = await this.collection.where('clientId', '==', clientId).get()
-        return collection.docs.map(doc => { return { ...doc.data(), id: doc.id } })
+        const collection = await this.collection.where('clientId', '==', clientId).get();
+        return collection.docs.map(doc => {
+            return { ...doc.data(), id: doc.id };
+        });
+    }
+
+    async doesProjectExist(data: any) {
+        const projects = await this.getAll<Project>();
+        if (!data.value) {
+            data.value = data.label.toLowerCase().replace(/\W/g, '_');
+        }
+        if (data.integrations) {
+            return projects.find(project => project.integration.id === data.integration.id);
+        }
+        return projects.find(project => project.value === data.value);
     }
 
     async create(data: ProjectDto) {
         if (!data.value) {
-            data.value = data.label.toLowerCase().replace(/\W/g, '_')
+            data.value = data.label.toLowerCase().replace(/\W/g, '_');
         }
         this.data = data;
         this.data.status = EStatus.Active;

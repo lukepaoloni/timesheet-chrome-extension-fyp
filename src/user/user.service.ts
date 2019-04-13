@@ -134,6 +134,11 @@ export class UserService extends AbstractService {
         return super.update(id, data);
     }
 
+    async getAllForPushNotifications() {
+        const result = await this.getAll<User>();
+        return result.filter(user => user.fcmPayload);
+    }
+
     async getOneByToken(token): Promise<User | undefined> {
         const results = await this.db.firestore
             .collection('users')

@@ -50,35 +50,40 @@ class Config {
     SESSION_EXPIRES_IN: number | undefined;
 
     @inject({ cast: toString, source })
-    APP_DOMAIN: string
+    APP_DOMAIN: string;
 
     @inject({ cast: toString, source })
-    GOOGLE_CLIENT_ID: string | undefined
+    GOOGLE_CLIENT_ID: string | undefined;
 
     @inject({ cast: toString, source })
-    GOOGLE_CLIENT_SECRET: string | undefined
+    GOOGLE_CLIENT_SECRET: string | undefined;
 
     @inject({ cast: toString, source })
-    GOOGLE_REDIRECT_URI: string | undefined
+    GOOGLE_REDIRECT_URI: string | undefined;
 
     @inject({ cast: toString, source })
-    GITHUB_CLIENT_ID: string | undefined
+    GITHUB_CLIENT_ID: string | undefined;
 
     @inject({ cast: toString, source })
-    GITHUB_CLIENT_SECRET: string | undefined
+    GITHUB_CLIENT_SECRET: string | undefined;
 
     @inject({ cast: toString, source })
-    GITHUB_CALLBACK_URL: string | undefined
+    GITHUB_CALLBACK_URL: string | undefined;
 
     @inject({ cast: toString, source })
-    BITBUCKET_CLIENT_ID: string | undefined
+    BITBUCKET_CLIENT_ID: string | undefined;
 
     @inject({ cast: toString, source })
-    BITBUCKET_CLIENT_SECRET: string | undefined
+    BITBUCKET_CLIENT_SECRET: string | undefined;
 
     @inject({ cast: toString, source })
-    BITBUCKET_CALLBACK_URL: string | undefined
+    BITBUCKET_CALLBACK_URL: string | undefined;
 
+    @inject({ cast: toString, source })
+    PUSH_NOTIFICATION_PUBLIC_KEY: string | undefined;
+
+    @inject({ cast: toString, source })
+    PUSH_NOTIFICATION_PRIVATE_KEY;
 }
 
 export default new Config();

@@ -13,6 +13,7 @@ export class Client extends AbstractModel<Client> {
     label: string;
     value: string;
     status?: EStatus;
+    integration?: any;
 
     getData(): ClientRO {
         const { label, value } = this;
