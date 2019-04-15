@@ -53,8 +53,9 @@ export class User extends AbstractModel<User> {
     }
 
     getData(): UserRO {
-        const { name, email, role, status, integrations, settings } = this;
+        const { id, name, email, role, status, integrations, settings } = this;
         const responseObject: UserRO = {
+            id,
             name,
             email,
             role,

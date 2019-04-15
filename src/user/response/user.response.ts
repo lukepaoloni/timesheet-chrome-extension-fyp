@@ -1,11 +1,12 @@
 import { ERole, EStatus } from '@shared/enum';
 
 export interface UserRO {
-  name: string;
-  email: string;
-  role: ERole;
-  status: EStatus;
-  token?: string;
-  integrations?: any;
-  settings?: any;
+    id: string;
+    name: string;
+    email: string;
+    role: ERole;
+    status: EStatus;
+    token?: string;
+    integrations?: any;
+    settings?: any;
 }

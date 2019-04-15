@@ -78,7 +78,7 @@ export class UserController {
     async me(@CurrentUser() data: UserRO) {
         const user = await this.userService.getOne(data);
         const userData = await user.get();
-        return new User(userData.data()).getData();
+        return new User({ ...userData.data(), id: userData.id }).getData();
     }
 
     @Put('me/email')

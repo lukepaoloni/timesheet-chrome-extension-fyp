@@ -21,6 +21,7 @@ import { auth, firestore } from 'firebase';
 import { LoginRO } from './response/login.response';
 import config from '@app/config';
 import { Provider } from '@auth/enum/provider.enum';
+import { ERole } from '@shared/enum';
 
 @Injectable()
 export class UserService extends AbstractService {
@@ -100,6 +101,7 @@ export class UserService extends AbstractService {
                 },
                 createdAt: new Date(),
                 updatedAt: new Date(),
+                role: ERole.USER,
             });
 
         return this.login(credentials);
