@@ -1,5 +1,4 @@
 export enum EStatus {
     SUBMITTED = 'submitted',
-    PAUSED = 'paused',
-    LIVE = 'live',
+    IN_PROGRESS = 'in_progress',
 }

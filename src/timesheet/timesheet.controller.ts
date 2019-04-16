@@ -66,6 +66,7 @@ export class TimesheetController {
             message: 'Successfully created a timesheet.',
             timesheet: {
                 ...newTimesheet.data(),
+                id: newTimesheet.id,
             },
         };
     }
