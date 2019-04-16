@@ -12,6 +12,18 @@ export class TimesheetService extends AbstractService {
         super(db, 'timesheets');
     }
 
+    async getAll(page?: number, limit = 25) {
+        const timesheets = this.collection.orderBy('date');
+        if (page && page > 0) {
+            timesheets.startAt(limit * page - limit);
+        }
+
+        const timesheetData = await timesheets.get();
+        return timesheetData.docs.map(doc => {
+            return { ...doc.data(), id: doc.id } as any;
+        });
+    }
+
     async getCollection() {
         const data = await super.getAll();
         let collection: TimesheetRO[] = [];

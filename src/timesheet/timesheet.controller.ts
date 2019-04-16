@@ -1,4 +1,4 @@
-import { Controller, Param, Body, Put, Delete, Post, Get, UseGuards } from '@nestjs/common';
+import { Controller, Param, Body, Put, Delete, Post, Get, UseGuards, Query } from '@nestjs/common';
 import { TimesheetService } from './timesheet.service';
 import { TimesheetDto } from './dto/timesheet.dto';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
@@ -19,8 +19,12 @@ export class TimesheetController {
     @Get()
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    async getAll(@CurrentUser() id: any) {
-        const timesheets = await this.timesheetService.getAll<Timesheet>();
+    async getAll(
+        @CurrentUser() id: any,
+        @Query('page') page?: number,
+        @Query('limit') limit?: number,
+    ) {
+        const timesheets = await this.timesheetService.getAll(page, limit);
         const userDoc = await this.userService.getOne(id);
         const user = await userDoc.get();
         const { role } = user.data();
