@@ -23,7 +23,7 @@ export class TimesheetService extends AbstractService {
     }
 
     async create(data: Partial<TimesheetDto>) {
-        super.create({ ...data, status: EStatus.Active });
+        super.create({ ...data });
         return this;
     }
 

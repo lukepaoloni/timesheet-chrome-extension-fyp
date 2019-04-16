@@ -57,7 +57,13 @@ export class TimesheetController {
         });
         const save = await timesheet.save();
         const newTimesheet = await save.get();
-        return newTimesheet.data();
+        return {
+            success: true,
+            message: 'Successfully created a timesheet.',
+            timesheet: {
+                ...newTimesheet.data(),
+            },
+        };
     }
 
     @Put(':id')
