@@ -32,6 +32,7 @@ export class UserController {
             config.PUSH_NOTIFICATION_PUBLIC_KEY,
             config.PUSH_NOTIFICATION_PRIVATE_KEY,
         );
+        this.userService = userService;
     }
 
     @Post('login')
@@ -58,7 +59,7 @@ export class UserController {
         description: 'Successfully collected all user documents.',
     })
     async getAll() {
-        return await this.userService.getCollection();
+        return await this.userService.getAll<User>();
     }
 
     @Post()
@@ -126,6 +127,13 @@ export class UserController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     async destroy(@Param('id') id: string) {
+        return await this.userService.delete(id);
+    }
+
+    @Delete('me')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    async deleteMe(@CurrentUser() id: string) {
         return await this.userService.delete(id);
     }
 

@@ -108,6 +108,9 @@ export class UserService extends AbstractService {
     }
 
     async getOneByEmail(email: string) {
+        if (!email) {
+            throw new NotAcceptableException('Email is undefined.');
+        }
         const result = await this.db.firestore
             .collection('users')
             .where('email', '==', email)
