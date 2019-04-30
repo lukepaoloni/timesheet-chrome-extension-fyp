@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@app/app.module';
 import { Logger } from '@nestjs/common';
-import Config from '@app/config';
+import Config from './app/config';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';

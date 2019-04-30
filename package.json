@@ -10,7 +10,7 @@
         "start": "node build/src/main.js",
         "start:dev": "nodemon",
         "start:debug": "nodemon --config nodemon-debug.json",
-        "prestart:prod": "rimraf build && tsc --noEmitOnError",
+        "prestart:prod": "rimraf build && tsc --noEmitOnError --moduleResolution node",
         "start:prod": "node build/src/main.js",
         "lint": "tslint -p tsconfig.json -c tslint.json",
         "test": "jest",
