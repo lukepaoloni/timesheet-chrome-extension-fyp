@@ -3,9 +3,8 @@ import { TimesheetService } from './timesheet.service';
 import { TimesheetDto } from './dto/timesheet.dto';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { CurrentUser } from '@user/decorators/user.decorator';
-import { UserService } from '@user/user.service';
-import { Timesheet } from './timesheet.model';
+import { CurrentUser } from 'src/user/decorators/user.decorator';
+import { UserService } from 'src/user/user.service';
 import { ERole } from '@shared/enum';
 
 @ApiUseTags('Timesheets')

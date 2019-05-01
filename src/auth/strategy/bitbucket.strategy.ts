@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-bitbucket-oauth2';
 import { AuthService } from '../auth.service';
-import config from '@app/config';
+import config from '../../app/config';
 import { Provider } from '../enum/provider.enum';
 import axios from 'axios';
-import { AppGateway } from '@app/app.gateway';
+import { AppGateway } from '../../app/app.gateway';
 
 @Injectable()
 export class BitbucketStrategy extends PassportStrategy(Strategy, 'bitbucket') {

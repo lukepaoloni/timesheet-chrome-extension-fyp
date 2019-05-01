@@ -1,12 +1,10 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { AbstractService } from '@shared/service';
-import { DatabaseService } from '@db/database.service';
+import { AbstractService } from '../shared/service';
+import { DatabaseService } from '../database/database.service';
 import { ClientRO } from './response/client.response';
 import { Client } from './client.model';
 import { ClientDto } from './dto/client.dto';
-import { EStatus } from '@shared/enum';
-import { Observable } from 'apollo-link';
-import { AxiosResponse } from 'axios';
+import { EStatus } from '../shared/enum';
 
 @Injectable()
 export class ClientService extends AbstractService {

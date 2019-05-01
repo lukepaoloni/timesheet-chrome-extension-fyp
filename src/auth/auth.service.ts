@@ -1,12 +1,11 @@
 import { Injectable, forwardRef, Inject, ForbiddenException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { UserRO } from '@user/response/user.response';
 import { JwtService } from '@nestjs/jwt';
-import Config from '@app/config';
+import Config from 'src/app/config';
 import { Credentials } from '../shared/credentials.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { sign } from 'jsonwebtoken';
-import { User } from '@user/user.model';
+import { User } from '../user/user.model';
 import { auth } from 'firebase';
 import { LoginRO } from '../user/response/login.response';
 import { Provider } from './enum/provider.enum';

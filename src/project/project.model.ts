@@ -1,8 +1,7 @@
 import { EStatus } from '@shared/enum';
 import { ProjectRO } from './response/project.response';
-import { Client } from '@client/client.model';
+import { Client } from 'src/client/client.model';
 import { AbstractModel } from '@shared/model';
-import { ClientDTO } from './dto/client.dto';
 
 export class Project extends AbstractModel<Project> {
     constructor(partial?: Partial<Project>) {

@@ -13,5 +13,5 @@ export class TimesheetDto {
     date: Date;
     @ApiModelProperty()
     duration: number;
-    user: UserTimesheetDto
+    user: UserTimesheetDto;
 }

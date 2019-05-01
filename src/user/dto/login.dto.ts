@@ -1,5 +1,4 @@
-import { ERole, EStatus } from '@shared/enum';
-import { ApiModelProperty, ApiImplicitQuery } from '@nestjs/swagger';
+import { ApiModelProperty } from '@nestjs/swagger';
 export class LoginDto {
     @ApiModelProperty()
     email: string;

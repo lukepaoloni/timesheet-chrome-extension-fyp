@@ -1,6 +1,5 @@
 import Config from '../app/config';
 import firebase from 'firebase';
-import { Logger } from '@nestjs/common';
 
 export class DatabaseService {
     public firestore: firebase.firestore.Firestore;
@@ -29,5 +28,4 @@ export class DatabaseService {
     public async read(collection) {
         return await this.getCollection(collection);
     }
-
 }

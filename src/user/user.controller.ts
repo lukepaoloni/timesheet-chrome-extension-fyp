@@ -15,13 +15,13 @@ import { User } from './user.model';
 import { UserDto } from './dto/user.dto';
 import { ApiUseTags, ApiResponse, ApiCreatedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { Credentials } from '@shared/credentials.dto';
+import { Credentials } from '../shared/credentials.dto';
 import { CurrentUser } from './decorators/user.decorator';
 import { UserRO } from './response/user.response';
 import { LoginRO } from './response/login.response';
 import { auth } from 'firebase';
 import * as webPush from 'web-push';
-import config from '@app/config';
+import config from '../app/config';
 
 @ApiUseTags('Users')
 @Controller('api/rest/users')

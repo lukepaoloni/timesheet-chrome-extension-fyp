@@ -3,30 +3,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.model';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
-import config from '@app/config';
+import config from '../app/config';
 import { UserController } from './user.controller';
 
-let imports: any = [
-
-];
+let imports: any = [];
 
 if (config.TYPEORM_CONNECTION) {
-    imports.push(
-        TypeOrmModule.forFeature([User]),
-    );
+    imports.push(TypeOrmModule.forFeature([User]));
 }
 
 @Module({
     imports,
-    providers: [
-        UserService,
-        UserResolver,
-    ],
-    controllers: [
-        UserController,
-    ],
-    exports: [
-        UserService
-    ]
+    providers: [UserService, UserResolver],
+    controllers: [UserController],
+    exports: [UserService],
 })
-export class UserModule { }
+export class UserModule {}

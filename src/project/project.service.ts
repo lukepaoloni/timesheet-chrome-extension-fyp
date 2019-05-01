@@ -1,6 +1,6 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { AbstractService } from '../shared/service';
-import { DatabaseService } from '@db/database.service';
+import { DatabaseService } from 'src/database/database.service';
 import { ProjectRO } from './response/project.response';
 import { Project } from './project.model';
 import { ProjectDto } from './dto/project.dto';

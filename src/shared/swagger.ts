@@ -1,13 +1,15 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { UserModule } from '@user/user.module';
+import { UserModule } from 'src/user/user.module';
 import { ProjectModule } from '../project/project.module';
 import { ClientModule } from '../client/client.module';
+import config from '../app/config';
 
-export const swagger = (app) => {
+export const swagger = app => {
     const options = new DocumentBuilder()
         .setTitle('Timesheet')
         .setDescription('The API for the timesheets chrome extension.')
         .setVersion('1.0')
+        .setBasePath(config.APP_DOMAIN)
         .addBearerAuth('Authorization', 'header')
         .build();
     const document = SwaggerModule.createDocument(app, options);
@@ -30,7 +32,9 @@ export const swagger = (app) => {
         .addTag('Projects')
         .addBearerAuth('Authorization', 'header')
         .build();
-    const projectDocument = SwaggerModule.createDocument(app, projectOptions, { include: [ProjectModule] });
+    const projectDocument = SwaggerModule.createDocument(app, projectOptions, {
+        include: [ProjectModule],
+    });
     SwaggerModule.setup('api/swagger/projects', app, projectDocument);
 
     const clientOptions = new DocumentBuilder()
@@ -40,7 +44,9 @@ export const swagger = (app) => {
         .addTag('Clients')
         .addBearerAuth('Authorization', 'header')
         .build();
-    const clientDocument = SwaggerModule.createDocument(app, clientOptions, { include: [ClientModule] })
+    const clientDocument = SwaggerModule.createDocument(app, clientOptions, {
+        include: [ClientModule],
+    });
     SwaggerModule.setup('api/swagger/clients', app, clientDocument);
 
     const timesheetOptions = new DocumentBuilder()
@@ -50,7 +56,8 @@ export const swagger = (app) => {
         .addTag('Timesheets')
         .addBearerAuth('Authorization', 'header')
         .build();
-    const timesheetDocument = SwaggerModule.createDocument(app, timesheetOptions, { include: [ClientModule] })
+    const timesheetDocument = SwaggerModule.createDocument(app, timesheetOptions, {
+        include: [ClientModule],
+    });
     SwaggerModule.setup('api/swagger/timesheets', app, timesheetDocument);
-
-}
+};

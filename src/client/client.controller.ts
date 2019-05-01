@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nes
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { ClientService } from './client.service';
 import { ClientDto } from './dto/client.dto';
-import { Client } from '@client/client.model';
+import { Client } from '../client/client.model';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiUseTags('Clients')

@@ -1,6 +1,5 @@
 import { AbstractModel } from '@shared/model';
-import { User } from '../user/user.model';
-import { Project } from '@project/project.model';
+import { Project } from 'src/project/project.model';
 import { Client } from '../client/client.model';
 import { EStatus } from './enums/status';
 import { TimesheetRO } from './response/timesheet.response';

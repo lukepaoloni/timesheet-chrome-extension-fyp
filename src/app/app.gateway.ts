@@ -1,12 +1,11 @@
-import { WebSocketGateway, WebSocketServer, OnGatewayConnection } from '@nestjs/websockets'
+import { WebSocketGateway, WebSocketServer, OnGatewayConnection } from '@nestjs/websockets';
 
 @WebSocketGateway(4001)
 export class AppGateway implements OnGatewayConnection {
     @WebSocketServer()
-    wss
+    wss;
 
     handleConnection(client) {
-        client.emit('connection', 'Successfully connected to server.')
+        client.emit('connection', 'Successfully connected to server.');
     }
-
 }

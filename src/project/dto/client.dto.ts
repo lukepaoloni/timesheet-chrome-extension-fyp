@@ -1,4 +1,4 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export class ClientDTO {
     @ApiModelPropertyOptional()

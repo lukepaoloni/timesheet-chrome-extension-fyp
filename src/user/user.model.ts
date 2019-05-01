@@ -1,12 +1,9 @@
-import { ERole, EStatus } from '@shared/enum';
-import config from '@app/config';
+import { ERole, EStatus } from '../shared/enum';
+import config from '../app/config';
 import * as bcrypt from 'bcrypt';
 import { UserRO } from './response/user.response';
 import { AbstractModel } from '../shared/model';
-import * as jwt from 'jsonwebtoken';
-import Config from '@app/config';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-import { Provider } from '@auth/enum/provider.enum';
 import { Settings } from './settings';
 class IntegrationDto {
     @ApiModelProperty()

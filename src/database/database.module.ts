@@ -9,8 +9,6 @@ import { DatabaseService } from './database.service';
             useValue: new DatabaseService(),
         },
     ],
-    exports: [
-        DatabaseService,
-    ],
+    exports: [DatabaseService],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

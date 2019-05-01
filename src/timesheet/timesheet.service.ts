@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AbstractService } from '../shared/service';
-import { DatabaseService } from '@db/database.service';
+import { DatabaseService } from 'src/database/database.service';
 import { TimesheetRO } from './response/timesheet.response';
 import { Timesheet } from './timesheet.model';
 import { TimesheetDto } from './dto/timesheet.dto';

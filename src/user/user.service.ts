@@ -4,24 +4,22 @@ import {
     Inject,
     forwardRef,
     NotAcceptableException,
-    NotFoundException,
 } from '@nestjs/common';
 import { User } from './user.model';
-import { DatabaseService } from '@db/database.service';
+import { DatabaseService } from '../database/database.service';
 import { AbstractService } from '../shared/service';
 import { UserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UserRO } from './response/user.response';
 import { AuthDto } from '../auth/dto/auth.dto';
 import { Credentials } from '../shared/credentials.dto';
-import Config from '@app/config';
+import Config from '../app/config';
 import { AuthService } from '../auth/auth.service';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { auth, firestore } from 'firebase';
-import { LoginRO } from './response/login.response';
-import config from '@app/config';
-import { Provider } from '@auth/enum/provider.enum';
-import { ERole } from '@shared/enum';
+import config from '../app/config';
+import { Provider } from '../auth/enum/provider.enum';
+import { ERole } from '../shared/enum';
 
 @Injectable()
 export class UserService extends AbstractService {

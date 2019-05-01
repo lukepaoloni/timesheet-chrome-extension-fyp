@@ -2,7 +2,7 @@ import { Controller, Get, Req, UseGuards, Param, Query } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { AppGateway } from '@app/app.gateway';
+import { AppGateway } from '../app/app.gateway';
 import * as jwt from 'jsonwebtoken';
 
 @ApiUseTags('Authentication')

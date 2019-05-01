@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
-import Config from '@app/config';
+import Config from 'src/app/config';
 import * as jwt from 'jsonwebtoken';
 import { UnauthorizedException } from '@nestjs/common';
 

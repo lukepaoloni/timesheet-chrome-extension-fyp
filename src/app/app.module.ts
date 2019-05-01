@@ -3,36 +3,32 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from '../database/database.module';
 import Config from './config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UserModule } from '@user/user.module';
+import { UserModule } from '../user/user.module';
 import { DateScalar } from '../scalar/date';
-import { ProjectModule } from '@project/project.module';
-import { ClientModule } from '@client/client.module';
-import { TimesheetModule } from '@timesheet/timesheet.module';
+import { ProjectModule } from '../project/project.module';
+import { ClientModule } from '../client/client.module';
+import { TimesheetModule } from '../timesheet/timesheet.module';
 import { AuthModule } from '../auth/auth.module';
 
 let imports: any = [
-  DatabaseModule,
-  GraphQLModule.forRoot({
-    typePaths: ['./**/*.graphql'],
-  }),
-  AuthModule,
-  UserModule,
-  ProjectModule,
-  ClientModule,
-  TimesheetModule
+    DatabaseModule,
+    GraphQLModule.forRoot({
+        typePaths: ['./**/*.graphql'],
+    }),
+    AuthModule,
+    UserModule,
+    ProjectModule,
+    ClientModule,
+    TimesheetModule,
 ];
 
 if (Config.TYPEORM_CONNECTION) {
-  imports.push(
-    TypeOrmModule.forRoot(),
-  );
+    imports.push(TypeOrmModule.forRoot());
 }
 
 @Module({
-  imports,
-  controllers: [],
-  providers: [
-    DateScalar,
-  ],
+    imports,
+    controllers: [],
+    providers: [DateScalar],
 })
-export class AppModule { }
+export class AppModule {}

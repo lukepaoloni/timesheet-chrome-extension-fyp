@@ -4,7 +4,7 @@ export class ProjectDto {
     @ApiModelProperty()
     label: string;
     @ApiModelPropertyOptional()
-    value?: string
+    value?: string;
     @ApiModelProperty()
     client: ClientDTO;
     @ApiModelProperty()

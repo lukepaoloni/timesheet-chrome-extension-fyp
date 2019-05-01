@@ -1,4 +1,3 @@
-import { UserDto } from "@user/dto/user.dto";
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class LoginRO {

@@ -1,4 +1,4 @@
-import { ERole, EStatus } from '@shared/enum';
+import { ERole, EStatus } from '../../shared/enum';
 
 export interface UserRO {
     id: string;
