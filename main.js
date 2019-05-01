@@ -59,7 +59,7 @@ function bootstrap() {
         }
       })
     );
-    yield app.listen(config_1.default.APP_PORT || 5000);
+    yield app.listen(config_1.default.APP_PORT);
     common_1.Logger.log(
       `Server running on ${config_1.default.APP_DOMAIN}`,
       "Bootstrap"
