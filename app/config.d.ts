@@ -1,0 +1,31 @@
+declare class Config {
+    APP_PORT: number;
+    TYPEORM_CONNECTION: string;
+    FIREBASE_API_KEY: string;
+    FIREBASE_AUTH_DOMAIN: string;
+    FIREBASE_DATABASE_URL: string;
+    FIREBASE_PROJECT_ID: string;
+    FIREBASE_STORAGE_BUCKET: string;
+    FIREBASE_MESSAGING_SENDER_ID: number;
+    SALT_ROUNDS: number;
+    BITBUCKET_APP_USERNAME: string;
+    BITBUCKET_APP_PASSWORD: string;
+    JWT_SECRET_KEY: string;
+    USE_CUSTOM_AUTHENTICATION: boolean;
+    USE_GOOGLE_AUTHENTICATION: boolean;
+    SESSION_EXPIRES_IN: number;
+    APP_DOMAIN: string;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_REDIRECT_URI: string;
+    GITHUB_CLIENT_ID: string;
+    GITHUB_CLIENT_SECRET: string;
+    GITHUB_CALLBACK_URL: string;
+    BITBUCKET_CLIENT_ID: string;
+    BITBUCKET_CLIENT_SECRET: string;
+    BITBUCKET_CALLBACK_URL: string;
+    PUSH_NOTIFICATION_PUBLIC_KEY: string;
+    PUSH_NOTIFICATION_PRIVATE_KEY: any;
+}
+declare const _default: Config;
+export default _default;
